@@ -1,8 +1,16 @@
 using UnityEngine;
 
-public class InputBulletSpawner : Spawner<Bullet>
+[RequireComponent(typeof(BulletSpawner))]
+public class InputShooter : BulletSpawner
 {
     [SerializeField] private InputService _inputService;
+
+    private BulletSpawner _bulletSpawner;
+
+    private void Awake()
+    {
+        _bulletSpawner = GetComponent<BulletSpawner>();
+    }
 
     private void OnEnable()
     {
@@ -16,6 +24,6 @@ public class InputBulletSpawner : Spawner<Bullet>
 
     private void OnInputShooted()
     {
-        Spawn();
+        _bulletSpawner.Shoot();
     }
 }
