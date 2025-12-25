@@ -13,5 +13,7 @@ public class SimpleFollower : MonoBehaviour
     }
 
     private void LateUpdate()
-        => transform.position = new Vector3(_target.position.x + _xOffset, _target.position.y + _yOffset, transform.position.z);
+    {
+        transform.position = new Vector3(_target.position.x + _xOffset, _target.position.y + _yOffset, transform.position.z);
+    }
 }

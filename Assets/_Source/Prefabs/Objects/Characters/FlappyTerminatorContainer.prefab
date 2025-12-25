@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7869977558027474124}
   m_Layer: 0
-  m_Name: BulletsPool
+  m_Name: BulletsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,6 +452,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1026824260284165748, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: _prefabsContainer
+      value: 
+      objectReference: {fileID: 7869977558027474124}
     - target: {fileID: 1704759242471393361, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
       propertyPath: m_Name
       value: GunContainer
@@ -491,8 +495,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d512ab8981d9d4390d63f6cb0c0a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3877474526204957082, guid: 0e183a99e851a4940b4f1ceb35c66626, type: 3}
-  _container: {fileID: 7869977558027474124}
+  _bulletConfiguration: {fileID: 0}
+  _shootPoint: {fileID: 0}
+  _gunConfiguration: {fileID: 0}
+  _isLeftShootingDirection: 0
   _inputService: {fileID: 0}
 --- !u!1001 &5345576780387655103
 PrefabInstance:

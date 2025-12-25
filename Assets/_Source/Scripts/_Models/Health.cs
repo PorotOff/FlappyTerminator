@@ -33,7 +33,9 @@ public class Health
     }
 
     public void Zeroize()
-        => Current = 0;
+    {
+        Current = 0;
+    }
 
     public void TakeHealth(int health)
     {
@@ -42,5 +44,7 @@ public class Health
     }
 
     public void Reset()
-        => Current = Max;
+    {
+        Current = Max;
+    }
 }

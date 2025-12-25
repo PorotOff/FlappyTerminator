@@ -28,8 +28,12 @@ public class InputService : MonoBehaviour
     }
 
     private void OnFlapped(InputAction.CallbackContext context)
-        => Flapped?.Invoke();
+    {
+        Flapped?.Invoke();
+    }
 
     private void OnShooted(InputAction.CallbackContext context)
-        => Shooted?.Invoke();
+    {
+        Shooted?.Invoke();
+    }
 }

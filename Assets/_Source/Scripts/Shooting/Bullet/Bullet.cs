@@ -48,8 +48,12 @@ public class Bullet : MonoBehaviour, IPooledObject<Bullet>
     }
 
     private void OnDamageableDetected(IDamageable damageable)
-        => damageable.TakeDamage(_damage);
+    {
+        damageable.TakeDamage(_damage);
+    }
 
     private void OnBorderDetected()
-        => Destroyed?.Invoke(this);
+    {
+        Destroyed?.Invoke(this);
+    }
 }

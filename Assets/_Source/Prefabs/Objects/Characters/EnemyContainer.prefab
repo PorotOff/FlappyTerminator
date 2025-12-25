@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2736a05a3133c064db87c1608922ea34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 3
   _isLeftMovementDirection: 1
   _animatedBarMinToMaxValueIndicator: {fileID: 916115102521981023}
 --- !u!1 &2462822188727100053
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7266624623832154798}
   m_Layer: 0
-  m_Name: BulletsPool
+  m_Name: BulletsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -952,7 +952,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 7
 --- !u!60 &4634019364235142045
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -997,17 +997,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.24853697, y: 0.4568339}
-      - {x: -0.16377312, y: 0.46492863}
-      - {x: -0.59079397, y: 0.12910458}
-      - {x: -0.6864697, y: -0.08288984}
-      - {x: -0.25329828, y: -0.46271104}
-      - {x: 0.09946185, y: -0.46249416}
-      - {x: 0.16364503, y: -0.38420722}
-      - {x: 0.5064359, y: -0.38484022}
-      - {x: 0.67277884, y: -0.1197553}
-      - {x: 0.5090961, y: -0.030393094}
-      - {x: 0.50250643, y: 0.2087563}
+    - - {x: -0.24714208, y: 0.47069904}
+      - {x: -0.5069355, y: 0.21535604}
+      - {x: -0.67745113, y: -0.11353545}
+      - {x: -0.5200879, y: -0.37752414}
+      - {x: -0.0869165, y: -0.4592448}
+      - {x: 0.26237732, y: -0.45209533}
+      - {x: 0.4097514, y: -0.3876735}
+      - {x: 0.6658851, y: -0.13873391}
+      - {x: 0.6762451, y: -0.033098146}
+      - {x: 0.3461806, y: 0.37169608}
+      - {x: 0.16281033, y: 0.4583289}
   m_UseDelaunayMesh: 0
 --- !u!1001 &3976191995115387588
 PrefabInstance:
@@ -1142,6 +1142,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8252513832941311800}
     m_Modifications:
+    - target: {fileID: 241959428278986842, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: _gunConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: 31660e7c2f46f2348be3d2ed9b31b055, type: 2}
+    - target: {fileID: 241959428278986842, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: _bulletConfiguration
+      value: 
+      objectReference: {fileID: 11400000, guid: ce8133e766131d648b6a5a40d4359277, type: 2}
+    - target: {fileID: 241959428278986842, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: _isLeftShootingDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1023146428626541895, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1182,6 +1194,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1026824260284165748, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: _prefabsContainer
+      value: 
+      objectReference: {fileID: 7266624623832154798}
     - target: {fileID: 1704759242471393361, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
       propertyPath: m_Name
       value: GunContainer
@@ -1194,6 +1210,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7f3a8b60c4b94b648be77355b589966a, type: 3}
+    - target: {fileID: 8693868763560638039, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.569
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7737129385974816148, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
     m_RemovedGameObjects: []
@@ -1204,19 +1224,14 @@ PrefabInstance:
       addedObject: {fileID: 224061324735063665}
     - targetCorrespondingSourceObject: {fileID: 6065912924065491390, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4005868144250505889}
+      addedObject: {fileID: 5616644557673819039}
   m_SourcePrefab: {fileID: 100100000, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
---- !u!4 &855075787222492930 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8693868763560638039, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
-  m_PrefabInstance: {fileID: 8321250723254391125}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2834302225949767915 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6065912924065491390, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}
   m_PrefabInstance: {fileID: 8321250723254391125}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4005868144250505889
+--- !u!114 &5616644557673819039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1225,17 +1240,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2834302225949767915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb034b5458f3d434e88f79d3e32fb083, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fd05374f6830ce4599f24925b0fef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3877474526204957082, guid: 0e183a99e851a4940b4f1ceb35c66626, type: 3}
-  _container: {fileID: 7266624623832154798}
-  _minSpawnDelaySeconds: 1.5
-  _maxSpawnDelaySeconds: 3
-  _bulletConfiguration: {fileID: 11400000, guid: ce8133e766131d648b6a5a40d4359277, type: 2}
-  _shootPoint: {fileID: 855075787222492930}
-  _gunConfiguration: {fileID: 11400000, guid: 31660e7c2f46f2348be3d2ed9b31b055, type: 2}
-  _isLeftShootingDirection: 1
+  _minDelaySeconds: 1.5
+  _maxDelaySeconds: 3
 --- !u!1 &7265291422932670724 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1704759242471393361, guid: 5e98d429db06f8d4ebfec2dd2374d66e, type: 3}

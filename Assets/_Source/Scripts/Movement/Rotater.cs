@@ -22,8 +22,12 @@ public class Rotater
     }
 
     public void OnRotationStarted()
-        => _transform.rotation = _maxRotation;
+    {
+        _transform.rotation = _maxRotation;
+    }
 
     public void Rotate()
-        => _transform.rotation = Quaternion.Lerp(_transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+    {
+        _transform.rotation = Quaternion.Lerp(_transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+    }
 }

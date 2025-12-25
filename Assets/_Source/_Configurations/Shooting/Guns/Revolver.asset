@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63209b4e554f1804abcacb106bbbdff4, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  <ShootForce>k__BackingField: 1000
+  <ShootForce>k__BackingField: 500

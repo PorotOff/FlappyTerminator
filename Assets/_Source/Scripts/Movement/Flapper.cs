@@ -13,5 +13,7 @@ public class Flapper
     }
 
     public void Flap()
-        => _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _force);
+    {
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _force);
+    }
 }

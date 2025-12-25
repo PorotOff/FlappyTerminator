@@ -5,14 +5,16 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPooledObject<T
 {
     [Header("Spawner settings")]
     [SerializeField] private T _prefab;
-    [SerializeField] private Transform _container;
+    [SerializeField] private Transform _prefabsContainer;
 
     protected IObjectPool<T> Pool;
 
     private void Awake()
-        => Pool = new ObjectPool<T>(OnPoolCreate, OnPoolGet, OnPoolRelease, OnPoolDestroy);
+    {
+        Pool = new ObjectPool<T>(OnPoolCreate, OnPoolGet, OnPoolRelease, OnPoolDestroy);
+    }
 
-    protected virtual T Spawn()
+    public virtual T Spawn()
     {
         T spawnable = Pool.Get();
         spawnable.Destroyed += OnPoolObjectDestroyed;
@@ -28,17 +30,23 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPooledObject<T
 
     private T OnPoolCreate()
     {
-        T spawnable = Instantiate(_prefab, _container);
+        T spawnable = Instantiate(_prefab, _prefabsContainer);
 
         return spawnable;
     }
 
     private void OnPoolGet(T pooledObject)
-        => pooledObject.gameObject.SetActive(true);
+    {
+        pooledObject.gameObject.SetActive(true);
+    }
 
     private void OnPoolRelease(T pooledObject)
-        => pooledObject.gameObject.SetActive(false);
+    {
+        pooledObject.gameObject.SetActive(false);
+    }
 
     private void OnPoolDestroy(T pooledObject)
-        => Destroy(pooledObject.gameObject);
+    {
+        Destroy(pooledObject.gameObject);
+    }
 }

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BulletSpawner))]
-public class InputShooter : BulletSpawner
+[RequireComponent(typeof(Gun))]
+public class InputShooter : MonoBehaviour
 {
     [SerializeField] private InputService _inputService;
 
-    private BulletSpawner _bulletSpawner;
+    private Gun _gun;
 
     private void Awake()
     {
-        _bulletSpawner = GetComponent<BulletSpawner>();
+        _gun = GetComponent<Gun>();
     }
 
     private void OnEnable()
@@ -24,6 +24,6 @@ public class InputShooter : BulletSpawner
 
     private void OnInputShooted()
     {
-        _bulletSpawner.Shoot();
+        _gun.Shoot();
     }
 }

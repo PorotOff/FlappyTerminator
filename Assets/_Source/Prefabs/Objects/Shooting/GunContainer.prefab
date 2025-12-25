@@ -74,6 +74,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7847167956281819600}
   - component: {fileID: 4077185626419305996}
+  - component: {fileID: 1026824260284165748}
+  - component: {fileID: 241959428278986842}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -148,3 +150,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1026824260284165748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065912924065491390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d4e53039caa734586ac2b6ffa12cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3877474526204957082, guid: 0e183a99e851a4940b4f1ceb35c66626, type: 3}
+  _prefabsContainer: {fileID: 0}
+--- !u!114 &241959428278986842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065912924065491390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5968521f24de1a84a9387cc1ad5b9cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletConfiguration: {fileID: 11400000, guid: a27fbb3dbfa8552479dd5b43720ab54e, type: 2}
+  _shootPoint: {fileID: 8693868763560638039}
+  _gunConfiguration: {fileID: 11400000, guid: 14a289853923731499c8cadf5b57814b, type: 2}
+  _isLeftShootingDirection: 0
