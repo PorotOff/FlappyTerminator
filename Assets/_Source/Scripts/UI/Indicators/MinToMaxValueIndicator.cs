@@ -15,5 +15,6 @@ public abstract class MinToMaxValueIndicator : MonoBehaviour
 
     public abstract void Display(float current);
 
-    public abstract void SetActive(bool isActive);
+    public abstract void Enable();
+    public abstract void Disable();
 }

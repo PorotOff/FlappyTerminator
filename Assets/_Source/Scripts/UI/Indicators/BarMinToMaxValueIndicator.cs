@@ -18,8 +18,13 @@ public class BarMinToMaxValueIndicator : MinToMaxValueIndicator
         Slider.value = current;
     }
 
-    public override void SetActive(bool isActive)
+    public override void Enable()
     {
-        Slider.gameObject.SetActive(isActive);
+        Slider.gameObject.SetActive(true);
+    }
+
+    public override void Disable()
+    {
+        Slider.gameObject.SetActive(false);
     }
 }

@@ -2,58 +2,55 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(DamageableTriggerDetector))]
-[RequireComponent(typeof(BorderDetector))]
-public class Bullet : MonoBehaviour, IPooledObject<Bullet>
+public class Bullet : MonoBehaviour, IKillable, IPooledObject<Bullet>
 {
     private int _damage;
 
     private Rigidbody2D _rigidbody;
-    private SpriteRenderer _spriteRenderer;
     private DamageableTriggerDetector _damageableTriggerDetector;
-    private BorderDetector _borderDetector;
 
-    private Flipper _flipper;
-
-    public event Action<Bullet> Destroyed;
+    public event Action<Bullet> Released;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _damageableTriggerDetector = GetComponent<DamageableTriggerDetector>();
-        _borderDetector = GetComponent<BorderDetector>();
-
-        _flipper = new Flipper();
     }
 
     private void OnEnable()
     {
         _damageableTriggerDetector.Detected += OnDamageableDetected;
-        _borderDetector.Detected += OnBorderDetected;
     }
 
     private void OnDisable()
     {
         _damageableTriggerDetector.Detected -= OnDamageableDetected;
-        _borderDetector.Detected -= OnBorderDetected;
     }
 
-    public void Initialize(BulletConfiguration bulletConfiguration, Vector2 impulse)
+    public void Initialize(BulletConfiguration bulletConfiguration, Vector2 impulse, Quaternion rotation)
     {
-        _damage = bulletConfiguration.Damage;        
-        _rigidbody.AddForce(impulse);
-        _flipper.FlipX(_spriteRenderer, impulse.x);
+        _damage = bulletConfiguration.Damage;       
+
+        _rigidbody.velocity = Vector2.zero; 
+        _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
+
+        transform.rotation = rotation;
+    }
+
+    public void Release()
+    {
+        Released?.Invoke(this);
+    }
+
+    public void Die()
+    {
+        Release();
     }
 
     private void OnDamageableDetected(IDamageable damageable)
     {
         damageable.TakeDamage(_damage);
-    }
-
-    private void OnBorderDetected()
-    {
-        Destroyed?.Invoke(this);
+        Release();
     }
 }

@@ -1,42 +1,37 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemySpawner))]
-public class CyclicEnemySpawner : MonoBehaviour
+public class CyclicEnemySpawner : Spawner<Enemy>
 {
-    [Header("Spawner settings")]
     [SerializeField, Min(0)] private float _minDelaySeconds = 1.5f;
     [SerializeField, Min(0)] private float _maxDelaySeconds = 3f;
-    [Header("Spawning settings")]
     [SerializeField] private Transform _minSpawnPoint;
     [SerializeField] private Transform _maxSpawnPoint;
-
-    private EnemySpawner _enemySpawner;
+    [SerializeField] private Transform _bulletsContainer;  
 
     private Coroutine _coroutine;
 
-    private void Awake()
+    public event Action KilledEnemy;
+
+    public override void ReleaseAll()
     {
-        _enemySpawner = GetComponent<EnemySpawner>();
+        foreach(var enemy in ActiveObjects)
+        {
+            enemy.Killed -= OnEnemyKilled;
+            enemy.ReleaseGunBullets();
+        }
+
+        base.ReleaseAll();
     }
 
-    private void OnEnable()
-    {
-        StartSpawning();
-    }
-
-    private void OnDisable()
-    {
-        StopSpawning();
-    }
-
-    private void StartSpawning()
+    public void StartSpawning()
     {
         StopSpawning();
         _coroutine = StartCoroutine(SpawnCyclic());
     }
 
-    private void StopSpawning()
+    public void StopSpawning()
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
@@ -46,14 +41,23 @@ public class CyclicEnemySpawner : MonoBehaviour
     {
         while (enabled)
         {
-            float delay = Random.Range(_minDelaySeconds, _maxDelaySeconds);
+            float delay = UnityEngine.Random.Range(_minDelaySeconds, _maxDelaySeconds);
             yield return new WaitForSecondsRealtime(delay);
 
-            Enemy enemy = _enemySpawner.Spawn();
-            float ySpawnPosition = Random.Range(_minSpawnPoint.position.y, _maxSpawnPoint.position.y);
+            Enemy enemy = Spawn();
+            float ySpawnPosition = UnityEngine.Random.Range(_minSpawnPoint.position.y, _maxSpawnPoint.position.y);
             Vector2 spawnPosition = new Vector2(_minSpawnPoint.position.x, ySpawnPosition);
 
+            enemy.Killed += OnEnemyKilled;
+
+            enemy.Initialize(_bulletsContainer);
             enemy.transform.position = spawnPosition;
         }
+    }
+
+    private void OnEnemyKilled(Enemy enemy)
+    {
+        enemy.Killed -= OnEnemyKilled;
+        KilledEnemy?.Invoke();
     }
 }

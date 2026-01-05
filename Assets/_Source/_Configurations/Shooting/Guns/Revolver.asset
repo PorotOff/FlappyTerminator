@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63209b4e554f1804abcacb106bbbdff4, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  <ShootForce>k__BackingField: 500
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 7f3a8b60c4b94b648be77355b589966a, type: 3}
+  <ShootPosition>k__BackingField: {x: 0.6, y: 0.2}
+  <ShootForce>k__BackingField: 10

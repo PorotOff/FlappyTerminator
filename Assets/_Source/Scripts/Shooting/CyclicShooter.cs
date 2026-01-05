@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Gun))]
 public class CyclicShooter : MonoBehaviour
 {
     [SerializeField, Min(0)] private float _minDelaySeconds = 1.5f;
@@ -11,28 +10,18 @@ public class CyclicShooter : MonoBehaviour
 
     private Coroutine _coroutine;
 
-    private void Awake()
+    public void Initialize(Gun gun)
     {
-        _gun = GetComponent<Gun>();
+        _gun = gun;
     }
 
-    private void OnEnable()
-    {
-        StartShooting();
-    }
-
-    private void OnDisable()
-    {
-        StopShooting();
-    }
-
-    private void StartShooting()
+    public void StartShooting()
     {
         StopShooting();
         _coroutine = StartCoroutine(ShootCyclic());
     }
 
-    private void StopShooting()
+    public void StopShooting()
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);

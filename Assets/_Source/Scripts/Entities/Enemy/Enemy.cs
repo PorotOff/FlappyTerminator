@@ -1,26 +1,28 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(BorderDetector))]
-public class Enemy : MonoBehaviour, IDamageable, IPooledObject<Enemy>
+[RequireComponent(typeof(CyclicShooter))]
+public class Enemy : MonoBehaviour, IDamageable, IKillable, IPooledObject<Enemy>
 {
     [Header("Movement settings")]
     [SerializeField] private float _speed;
     [SerializeField] private bool _isLeftMovementDirection = false;
+    [Header("Shooting settings")]
+    [SerializeField] private Gun _gun;
     [Header("View settings")]
     [SerializeField] private AnimatedBarMinToMaxValueIndicator _animatedBarMinToMaxValueIndicator;
 
-    private BorderDetector _borderDetector;
+    private CyclicShooter _cyclicShooter;
 
     private Health _health;
     private Mover _mover;
 
-    public event Action<Enemy> Destroyed;
-    public event Action Died;
+    public event Action<Enemy> Released;
+    public event Action<Enemy> Killed;
 
     private void Awake()
     {
-        _borderDetector = GetComponent<BorderDetector>();
+        _cyclicShooter = GetComponent<CyclicShooter>();
 
         _health = new Health();
         _mover = new Mover(transform, _speed);
@@ -31,26 +33,54 @@ public class Enemy : MonoBehaviour, IDamageable, IPooledObject<Enemy>
     private void OnEnable()
     {
         _health.Changed += OnHealthChanged;
-        _health.BecameZero += OnHealthBecameZero;
-        _borderDetector.Detected += OnBorderDetected;        
+        _health.BecameZero += OnHealthBecameZero;       
+
+        _cyclicShooter.StartShooting();
     }
 
     private void OnDisable()
     {
         _health.Changed -= OnHealthChanged;
         _health.BecameZero -= OnHealthBecameZero;
-        _borderDetector.Detected -= OnBorderDetected;
+
+        _cyclicShooter.StopShooting();
     }
 
     private void Update()
     {
-        Vector2 movementDirection = DirectionProvider.GetHorizontalDirection(_isLeftMovementDirection);
+        float horizontalDirection = DirectionProvider.GetHorizontalDirection(_isLeftMovementDirection);
+        Vector2 movementDirection = new Vector2(horizontalDirection, 0f);
         _mover.Move(movementDirection);
+    }
+
+    public void Initialize(Transform bulletsContainer)
+    {
+        _gun.Initialize(bulletsContainer);
+
+        _animatedBarMinToMaxValueIndicator.Enable();
+        _health.Reset();
+
+        _cyclicShooter.Initialize(_gun);
+    }
+
+    public void ReleaseGunBullets()
+    {
+        _gun.ReleaseBullets();
+    }
+
+    public void Release()
+    {
+        Released?.Invoke(this);
     }
 
     public void TakeDamage(int damage)
     {
         _health.TakeDamage(damage);
+    }
+
+    public void Die()
+    {
+        Release();
     }
 
     private void OnHealthChanged()
@@ -60,12 +90,9 @@ public class Enemy : MonoBehaviour, IDamageable, IPooledObject<Enemy>
 
     private void OnHealthBecameZero()
     {
-        Died?.Invoke();
-        Destroyed?.Invoke(this);
-    }
-    
-    private void OnBorderDetected()
-    {
-        Destroyed?.Invoke(this);
+        _animatedBarMinToMaxValueIndicator.Disable();
+
+        Killed?.Invoke(this);
+        Release();
     }
 }

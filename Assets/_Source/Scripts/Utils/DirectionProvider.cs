@@ -1,12 +1,10 @@
-using UnityEngine;
-
 public static class DirectionProvider
 {
-    public static Vector2 GetHorizontalDirection(bool isLeftDirection)
+    public static float GetHorizontalDirection(bool isLeftDirection)
     {
         if (isLeftDirection)
-            return new Vector2(-1f, 0f);
+            return -1f;
         else
-            return new Vector2(1f, 0f);
+            return 1f;
     }
 }

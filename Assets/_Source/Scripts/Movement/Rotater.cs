@@ -10,6 +10,8 @@ public class Rotater
     private Quaternion _minRotation;
     private Quaternion _maxRotation;
 
+    private bool _isEnabled;
+
     public Rotater(Transform transform, float rotationSpeed, float minZAngle, float maxZAngle)
     {
         _transform = transform;
@@ -21,13 +23,29 @@ public class Rotater
         _maxRotation = Quaternion.Euler(0, 0, _maxZAngle);
     }
 
-    public void OnRotationStarted()
+    public void Enable()
     {
-        _transform.rotation = _maxRotation;
+        _isEnabled = true;
+    }
+
+    public void Disable()
+    {
+        _isEnabled = false;
+    }
+
+    public void StartRotation()
+    {
+        if (_isEnabled)
+        {
+            _transform.rotation = _maxRotation;
+        }
     }
 
     public void Rotate()
     {
-        _transform.rotation = Quaternion.Lerp(_transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+        if (_isEnabled)
+        {
+            _transform.rotation = Quaternion.Lerp(_transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
+        }
     }
 }
